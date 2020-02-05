@@ -1,4 +1,4 @@
-#Simulace Gaty 
+# Simulace Gaty 
 ![Schema2](Schema1.png)
 | **A** | **NOT** |
 | :-: | :-: |
@@ -26,7 +26,7 @@
 | 1 | 0 |  1| 0 |
 | 1 | 1 | 0 | 1 |
 
-#De Morgans 
+# De Morgans 
 
 ## Schéma
 ![Schema2](Schema2.png)
