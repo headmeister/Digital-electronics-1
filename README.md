@@ -4,4 +4,9 @@
 1. pes
 2. kočka
 
-[I'm an inline-style link](https://www.google.com)
+[Google](https://www.google.com)
+
+Zvíře|Máme
+-------- | ----------
+Pes | Ano
+Kočka | Ne
