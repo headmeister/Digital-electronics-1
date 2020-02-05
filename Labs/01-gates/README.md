@@ -1,5 +1,6 @@
 # Simulace Gaty 
 ![Schema2](Schema1.png)
+
  **A** | **NOT** 
      :-: | :-: 
      0 | 1 
