@@ -46,7 +46,7 @@
 | 1 | 1 | 1 | 0| 0| 0|
 
 
-# Navic
+# Navíc
 
 ## Schéma
 ![Schema3](Schema3.png)
