@@ -1,11 +1,11 @@
 # Simulace Gaty 
-![Schema2](Schema1.png)
 
- **A** | **NOT** 
-     :-: | :-: 
-     0 | 1 
-     1 | 0 
 
+ |**A** | **NOT** |
+    | :-: | :-: |
+    | 0 | 1 |
+    | 1 | 0 |
+     
     | **A** | **B** | **AND** | **NAND** |
     | :-: | :-: | :-: | :-: |
     | 0 | 0 | 0 | 1 |
@@ -30,7 +30,7 @@
 # De Morgans 
 
 ## Schéma
-![Schema2](Schema2.png)
+
 
 ## Tabulka
 
