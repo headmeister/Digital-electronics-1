@@ -20,6 +20,7 @@ entity top is
           SW1_CPLD:   in  std_logic;
           SW2_CPLD:   in  std_logic;
           SW3_CPLD:   in  std_logic;
+          SW4_CPLD:   in  std_logic;
           SW8_CPLD:   in  std_logic;        -- Input B
           SW9_CPLD:   in  std_logic;
           SW10_CPLD:  in  std_logic;
@@ -40,16 +41,22 @@ end entity top;
 -- Architecture declaration for top level
 ------------------------------------------------------------------------
 architecture Behavioral of top is
-    signal s_dataA, s_dataB: std_logic_vector(4-1 downto 0);
-    signal s_carry0, s_carry1, s_carry2: std_logic;
+    signal s_dataA, s_dataB,s_dataC: std_logic_vector(4-1 downto 0);
+    signal s_carry0,pom, s_carry1, s_carry2: std_logic;
     signal s_result: std_logic_vector(4-1 downto 0);
     signal s_carryOut: std_logic;
 begin
 
     -- Combine two 4-bit inputs to internal signals s_dataA and s_dataB
     -- WRITE YOUR CODE HERE
-
-
+   
+        s_dataC(0)<=SW8_CPLD;
+        s_dataC(1)<=SW9_CPLD;
+        s_dataC(2)<=SW10_CPLD;
+        s_dataC(3)<=SW11_CPLD;
+        
+        s_dataB <= not s_dataC  when (SW4_CPLD= '0') else  s_dataC; -- 0 
+          pom <=  '1'  when (SW4_CPLD= '0') else  '0'; -- 0 
     --------------------------------------------------------------------
     -- Sub-blocks of four full_adders
     FULLADDER0: entity work.full_adder
@@ -58,9 +65,9 @@ begin
                   -- ...
                   -- <component_signal> => actual_signal);
                   -- WRITE YOUR CODE HERE
-                  carry_i=>'0',
+                  carry_i=>pom,
                   a_i=>SW0_CPLD,
-                  b_i=>SW8_CPLD,
+                  b_i=>s_dataB(0),
                   sum_o=>s_result(0),
                   carry_o=>s_carry0
                  );
@@ -69,7 +76,7 @@ begin
         port map (
                   carry_i=>s_carry0,
                   a_i=>SW1_CPLD,
-                  b_i=>SW9_CPLD,
+                  b_i=>s_dataB(1),
                   sum_o=>s_result(1),
                   carry_o=>s_carry1
                  );
@@ -78,7 +85,7 @@ begin
         port map (
                   carry_i=>s_carry1,
                   a_i=>SW2_CPLD,
-                  b_i=>SW10_CPLD,
+                  b_i=>s_dataB(2),
                   sum_o=>s_result(2),
                   carry_o=>s_carry2
                  );
@@ -87,7 +94,7 @@ begin
         port map (
                   carry_i=>s_carry2,
                   a_i=>SW3_CPLD,
-                  b_i=>SW11_CPLD,
+                  b_i=>s_dataB(3),
                   sum_o=>s_result(3),
                   carry_o=>s_carryOut
                  );
@@ -113,9 +120,9 @@ begin
     LD2_CPLD<=SW2_CPLD;
     LD3_CPLD<=SW3_CPLD;
     
-    LD8_CPLD<=SW8_CPLD;
-    LD9_CPLD<=SW9_CPLD;
-    LD10_CPLD<=SW10_CPLD;
-    LD11_CPLD<=SW11_CPLD;
+    LD8_CPLD<=s_dataB(0);
+    LD9_CPLD<=s_dataB(1);
+    LD10_CPLD<=s_dataB(2);
+    LD11_CPLD<=s_dataB(3);
 
 end architecture Behavioral;
