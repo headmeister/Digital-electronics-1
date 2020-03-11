@@ -45,7 +45,7 @@ begin
     -- Sub-block of clock_enable entity. Create s_en signal.
     --- WRITE YOUR CODE HERE
 	GGenable: entity work.clock_enable
-        generic map (g_NPERIOD=>x"09C4")
+        generic map (g_NPERIOD=>x"0028")
         port map (-- <component_signal> => actual_signal,
                   -- <component_signal> => actual_signal,
                   -- ...
