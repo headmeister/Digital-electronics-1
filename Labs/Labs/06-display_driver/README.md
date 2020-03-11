@@ -1,5 +1,4 @@
-Preparation
-
-    &nbsp;
-    ![segment_timing](image.png)
-    &nbsp;
+# Preparation
+&nbsp;
+![segment_timing](image.png)
+&nbsp;
