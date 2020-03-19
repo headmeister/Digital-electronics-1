@@ -1,7 +1,8 @@
 # Projekt stop watch
 
+## Blokové schéma modulu TOP
 
-
+![Blokové schéma](image.png)
 
 
 # Implementace na Altera Cyclone IV E
