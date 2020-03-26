@@ -1,1 +1,2 @@
-# Simulace
+# Diagram FSM
+
