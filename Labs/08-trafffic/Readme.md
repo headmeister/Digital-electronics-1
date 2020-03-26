@@ -6,4 +6,4 @@
 Na začátku je po 1 sekundu aktivovaný reset, tudíž dojde k protažení bloku kdy jsou semafory ve stavu zelená-červená.
 
 # Blokové schéma TOP implementace
-![Diagram](top.png)
+![Diagram](TOP.png)
