@@ -19,4 +19,7 @@ This module is used several times throughout the design and it is used to divide
 ### Clock Divider Module
 This module divides the clock in contrast to clock_enable module, it does not generate pulses of one clock half period length, but it creates equal lenght of high and low values, this block is used for display blinking when the countdown is about to end. This is decided in disp_blink process, which either connects the display enable signal to 1 or the output of clock divider module, which period is set to 500 ms.
 
+### Driver7seg Module
+This module is used to drive the four 7-segment displays to show the remaining time, it complies of hexadecimal (binary) to output digits converter and mux to update each digit separately, since the wiring diagram does not allow to drive all of them all at once. In addition to implementation which has been done during the labs this module has a turn off signal, which can shut the display down completely (turn off all digits), in this design it is used to blink the display when the countdown is about to finish.
+
 
