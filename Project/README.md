@@ -60,6 +60,14 @@ This module is used to drive the four 7-segment displays to show the remaining t
 ### PWM dimmer
 The PWM dimmer is used to generate PWM signal with slowly varying duty cycle to perform the dimming of output light. It uses two clock enable modules, one of them is purpously altered so that the value to which this clock enable module should count can be changed in process. So the first clock enable module counts the period of PWM signal which is set to 100 Hz, the other counter is used to reset the output when it reaches set duty cycle. So the operation works as follows, the first counter reaches its treshold and sets the output to one and starts the other counter when the other counter reaches its treshold it switches the output to zero and holds itself in reset until the next trigger event of the first counter happens. In addition whenever every period of the first counter the value of the treshold of second counter is decremented by one. This happens until it reaches zero. When the input dimming_active signal is tight low, it does not do anything and keeps the output enabled, when the dimming active signal is switched high, the dimming procedure beginns as described above.
 
+#### Module simulation and verification
 
+![Diagram](images/dimmer.PNG )
+This picture shows the simulation of dimmer module, when the dimmer_enable signal is turned on the dimming starts by varying the duty cycle slowly to zero. This implementation expects driving the LED through supplying the current to anode, however driving of anode could be implemented as well by incorporating a negation (NOT gate).
+
+![Diagram](images/dimmer_scope.PNG )
+This picture shows the real output, measured directly from the FPGA pin.
+![Diagram](images/dimmer_scope2.PNG )
+This picture shows zoomed version of aformentioned picture, this is to show that the duty cycle is slowly changing to zero as expected.
 ### Debouncer module
 This module is used to debounce mechanical switches. These switches tend to oscilate when changing states, which could cause problems when reading their value. This module observes the state of input (button) and changes its output only if the input is stable for set amount of time. For the encoder button this time is set to 10 ms, for encoder switches this time is lower, as it is expected that these switches would show less bouncing and it is needed to capture fast movement of encoder. 
