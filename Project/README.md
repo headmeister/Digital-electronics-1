@@ -18,11 +18,11 @@ The other and in fact main function of this module is to countdown the main coun
 
 #### Conversion simulation
 ![Diagram](images/countdown_conversion.PNG )
-This picture shows the conversion of counter value od 3599 to MM:SS format (59:59).
+This picture shows the conversion of counter value od 3599 s to MM:SS format (59:59). The conversion can be seen in s_cntc1-4 registers, the displayed numbers are in decimal format.
 
-#### Simulation of stop feature
+#### Simulation of stop feature and countdown
 ![Diagram](images/countdown_stop.PNG )
-This picture shows the stop feature, when the countdown_stop signal is switched to 1 the counting down stops where it is.
+This picture shows the stop feature, when the countdown_stop signal is switched to 1 the counting down stops where it is. The first second takes logner, due to poor implementation of ce_1Hz signal in simulation, it does not happen in reality.
 
 #### Simulation of reset
 
@@ -31,6 +31,9 @@ This picture shows the reset, when the reset is pulled down, which signalizes th
 
 ### Encoder Module
 Encoder module has responsibility to read the movement of rotary encoder. It uses simple detection of movement using one output pin of rotary encoder while checking the value of the other one it decides wheter it should increase or decrease the counter value i.e. the knob has been turned clockwise or counterclockwise. For better usability when the knob is beeing turned for longer amount of time and with certain speed the increment increases as well. So if turning slowly the increment is 1 second, when turning faster the increment can rise up to 1 minute. 
+
+
+
 
 ### Clock enable module
 This module is used several times throughout the design and it is used to divide the input clock by creating enable signal which is high every n clock periods. The duration of this pulse is equal to one clock half period. 
