@@ -1,8 +1,8 @@
 # Project
 ## General description
-The circuit can perform a slow dimming of output device like LED through PWM after the set time has expired. The remaining time can be set by rotary encoder. The maximmum time to count down is set to 1 Hour and can be set in increments of seconds. Since it could take considerable amount of time to set the countdown to large values, the encoder module uses simple velocity-like control, so that when turning the knob for longer period of time and fast the increment of the counter rises as well. For convenience the remaining time is displayed on group of four 7 segment displays in MM:SS format. When the remaining time is less or equal to 10 seconds the display starts to blink to attract the attendance of user and remains blinking after the time has expired. When the time has expired the output is also slowly dimmed through PWM. The frequency of the PWM is roughly 100 Hz and the dimming is performed in 100 steps every PWM cycle so that the total dimming time is 1 second.
+The circuit can perform a slow dimming of output device like LED through PWM after the set time has expired. The remaining time can be set by rotary encoder. The maximmum time to count down is set to 1 Hour and can be set in increments of seconds. Since it could take considerable amount of time to set the countdown to large values, the encoder module uses simple velocity control, so that when turning the knob fast the increment of the encoder value rises as well. For convenience the remaining time is displayed on group of four 7 segment displays in MM:SS format. When the remaining time is less or equal to 10 seconds the display starts to blink to attract the attendance of user and remains blinking after the time has expired. When the time has expired the output is also slowly dimmed through PWM. The frequency of the PWM is 100 Hz and the dimming is performed in 100 steps every PWM cycle so that the total dimming time is 1 second. The button of encoder can be used to stop and start the timer and turn on the light.
 
-## Modules and block diagram
+## Modules and block chart
 
 
 ![Schema](blok_s1.PNG)
@@ -15,6 +15,19 @@ The chart has been generated in Quartus prime lite for better visuals than RTL v
 Counter module works as the main countdown for the light, in addition it works in cooperation with driver7seg module as binary to clock ( MM:SS) converter. It performs division of the current counter value by 600 (tenths of minutes) , 60 (minutes), 10 (tenths of seconds), 1( seconds), to convert the counter value to current remaining time. This conversion is guaranteed to take less than one second since every substraction takes one clock cycle, so even if we were tu substract one second everytime, if the maximmum counter values is 3600 seconds (which it infact is) then the conversion would take 3600 clock cycles while the second takes 10 000 clock cycles, so there should be no problem in unfinished conversion when moving it to display. In addition there is a buffer register where the value is altered only and if the conversion has been completed, this further ensures that no unfinished conversions are followed to display registers,from this buffer the display is updated synchronously with the seconds tick, so the display is updated every second. Because this could cause inconvinience when setting the remaining time by encoder (refresh rate of 1 Hz), the display is refreshed also when the knob is turned, this is sensed by the input reset signal. 
 
 The other and in fact main function of this module is to countdown the main counter, since the period of the counter is defined to be 1 second the counter value is in seconds. So the module decrements the current counter value by 1 every second and then executes the conversion to MM:SS format. Because this conversion can take different amount of time for different counter values and the main clock frequency is quite low (10 kHz) the display is synchronously updated so that, the change of digits on display appears to change in intervals of the same lenght.
+
+#### Conversion simulation
+![Diagram](images/countdown_conversion.PNG )
+This picture shows the conversion of counter value od 3599 to MM:SS format (59:59).
+
+#### Simulation of stop feature
+![Diagram](images/countdown_stop.PNG )
+This picture shows the stop feature, when the countdown_stop signal is switched to 1 the counting down stops where it is.
+
+#### Simulation of reset
+
+![Diagram](images/countdown_reset.PNG )
+This picture shows the reset, when the reset is pulled down, which signalizes the change of value in encoder, the value of countdown counter is reset to the current counter value (59:59).
 
 ### Encoder Module
 Encoder module has responsibility to read the movement of rotary encoder. It uses simple detection of movement using one output pin of rotary encoder while checking the value of the other one it decides wheter it should increase or decrease the counter value i.e. the knob has been turned clockwise or counterclockwise. For better usability when the knob is beeing turned for longer amount of time and with certain speed the increment increases as well. So if turning slowly the increment is 1 second, when turning faster the increment can rise up to 1 minute. 
