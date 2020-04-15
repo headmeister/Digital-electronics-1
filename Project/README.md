@@ -66,8 +66,11 @@ The PWM dimmer is used to generate PWM signal with slowly varying duty cycle to 
 This picture shows the simulation of dimmer module, when the dimmer_enable signal is turned on the dimming starts by varying the duty cycle slowly to zero. This implementation expects driving the LED through supplying the current to anode, however driving of anode could be implemented as well by incorporating a negation (NOT gate).
 
 ![Diagram](images/dimmer_scope.PNG )
+
 This picture shows the real output, measured directly from the FPGA pin.
+
 ![Diagram](images/dimmer_scope2.PNG )
+
 This picture shows zoomed version of aformentioned picture, this is to show that the duty cycle is slowly changing to zero as expected.
 ### Debouncer module
 This module is used to debounce mechanical switches. These switches tend to oscilate when changing states, which could cause problems when reading their value. This module observes the state of input (button) and changes its output only if the input is stable for set amount of time. For the encoder button this time is set to 10 ms, for encoder switches this time is lower, as it is expected that these switches would show less bouncing and it is needed to capture fast movement of encoder. 
