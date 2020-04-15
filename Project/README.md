@@ -30,13 +30,21 @@ This picture shows the stop feature, when the countdown_stop signal is switched 
 This picture shows the reset, when the reset is pulled down, which signalizes the change of value in encoder, the value of countdown counter is reset to the current counter value (59:59).
 
 ### Encoder Module
-Encoder module has responsibility to read the movement of rotary encoder. It uses simple detection of movement using one output pin of rotary encoder while checking the value of the other one it decides wheter it should increase or decrease the counter value i.e. the knob has been turned clockwise or counterclockwise. For better usability when the knob is beeing turned for longer amount of time and with certain speed the increment increases as well. So if turning slowly the increment is 1 second, when turning faster the increment can rise up to 1 minute. 
+Encoder module has responsibility to read the movement of rotary encoder. It uses simple detection of movement using one output pin of rotary encoder while checking the value of the other one it decides wheter it should increase or decrease the counter value i.e. the knob has been turned clockwise or counterclockwise. For better usability when the knob is beeing turned for longer amount of time and with certain speed the increment increases as well. So if turning slowly the increment is 1 second, when turning faster the increment can rise up to 30 seconds. 
 
+#### Simulation of velocity controll
+![Diagram](images/encoder_velocity.PNG )
+This picture shows the function of velocity controll, since the encoder is spinned at fast pace, the increment rises. Since the used encoder inceremnts by 2 every indent the output value of encoder is divided by two, therefore the real increment is half to what shows the simulation. This ensures that when turning the knob slowly we can achieve one seconds increments per indent. This loweres the number of pulses per revolution of encoder, but since we use this velocity controll this disadvantage is not noticable.  
 
-
+![Diagram](images/encoder_velocity2.PNG )
+This simulation output further shows the situation when the knob is turned at slower pace when the increment is one.
 
 ### Clock enable module
-This module is used several times throughout the design and it is used to divide the input clock by creating enable signal which is high every n clock periods. The duration of this pulse is equal to one clock half period. 
+This module is used several times throughout the design and it is used to divide the input clock by creating enable signal which is high every n clock periods. The duration of this pulse is equal to one clock half period. This module has been discussed and described in corresponding lab which can be seen under labs folder in the root directory of this repository.
+
+### Clock enable changeable module
+This module works as a clock enable module but its value can be change on the fly, this block is used in dimmer module to generate different duty cycles. Furthermore, since we never use values greater than 100 the bit width of setup register is changed from 16 to 8 bits.
+
 
 ### Clock Divider Module
 This module divides the clock in contrast to clock_enable module, it does not generate pulses of one clock half period length, but it creates equal lenght of high and low values, this block is used for display blinking when the countdown is about to end. This is decided in disp_blink process, which either connects the display enable signal to 1 or the output of clock divider module, which period is set to 500 ms.
