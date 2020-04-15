@@ -48,7 +48,7 @@ This module works as a clock enable module but its value can be change on the fl
 #### Simulaton of clock enable changeable module
 
 ![Diagram](images/enable_changeable.PNG )
-
+ We can see that after the input value of the module has changed so did the output period.
 ### Clock Divider Module
 This module divides the clock in contrast to clock_enable module, it does not generate pulses of one clock half period length, but it creates equal lenght of high and low values, this block is used for display blinking when the countdown is about to end. This is decided in disp_blink process, which either connects the display enable signal to 1 or the output of clock divider module, which period is set to 500 ms.
 
