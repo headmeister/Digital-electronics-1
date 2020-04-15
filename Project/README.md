@@ -45,6 +45,9 @@ This module is used several times throughout the design and it is used to divide
 ### Clock enable changeable module
 This module works as a clock enable module but its value can be change on the fly, this block is used in dimmer module to generate different duty cycles. Furthermore, since we never use values greater than 100 the bit width of setup register is changed from 16 to 8 bits.
 
+#### Simulaton of clock enable changeable module
+
+![Diagram](images/enable_changeable.PNG )
 
 ### Clock Divider Module
 This module divides the clock in contrast to clock_enable module, it does not generate pulses of one clock half period length, but it creates equal lenght of high and low values, this block is used for display blinking when the countdown is about to end. This is decided in disp_blink process, which either connects the display enable signal to 1 or the output of clock divider module, which period is set to 500 ms.
