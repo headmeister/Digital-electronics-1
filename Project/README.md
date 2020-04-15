@@ -5,10 +5,10 @@ The circuit can perform a slow dimming of output device like LED through PWM aft
 ## Modules and block diagram
 
 
-![Schema](schema_b1.svg)
+![Schema](schema_b1.svg| width=1000)
 
 
-![Diagram](schema_b2.svg)
+![Diagram](schema_b2.svg | width=1000)
 The chart has been generated in Quartus prime lite for better visuals than RTL viewer in Xilinx ise. The inputs A and B are two outputs of the encoder, the outpus PWM are for the LED or electronics driving larger light sources. 
 
 ### Counter Module
