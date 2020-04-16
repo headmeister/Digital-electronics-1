@@ -88,3 +88,5 @@ This picture shows the schematic of supplementary devices which are connected to
 
 ## Video 
 
+## Sources
+Schematic of development board, supplied by the manufacturer. 
