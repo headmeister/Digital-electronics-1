@@ -86,6 +86,9 @@ The schematic of used board can be found in supplementary material folder: https
 ![Diagram](images/Schema_final.PNG )
 This picture shows the schematic of supplementary devices which are connected to used board. The LED resistor has been computed for expected LED current of 20 mA and expected LED drop (depends on color) of 2V. The base resistor has been calculated for base current of approx 1 mA which should guarantee saturation.   
 
+### FPGA implementation
+The implementation itself has been performed on Altera cyclone IV FPGA, however the project created in Xilinx ISE for coolrunner Board is supplied in source folder as well, this folder also includes the required test benches. Unfortunatelly even with some optimization measures in mind, the desing is somewhat larger than the Coolrunner CPLD macrocell number. To fit this desing on this CPLD it would be required to ommit some functionality or come with more efficient desing, the most demanding feature is the implemenation of counter module, since the division is quite complicated operation. 
+
 ## Video 
 [![alt](https://img.youtube.com/vi/S_ScGBOjv98/0.jpg)](https://www.youtube.com/watch?v=S_ScGBOjv98)
 ## Sources
