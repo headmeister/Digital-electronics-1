@@ -74,3 +74,6 @@ This picture shows the real output, measured directly from the FPGA pin.
 This picture shows zoomed version of aformentioned picture, this is to show that the duty cycle is slowly changing to zero as expected.
 ### Debouncer module
 This module is used to debounce mechanical switches. These switches tend to oscilate when changing states, which could cause problems when reading their value. This module observes the state of input (button) and changes its output only if the input is stable for set amount of time. For the encoder button this time is set to 10 ms, for encoder switches this time is lower, as it is expected that these switches would show less bouncing and it is needed to capture fast movement of encoder. 
+![Diagram](images/debouncer.PNG )
+This picture shows the debouncer functionality, while the input changes rapidly for certain period of time, the output stays at the same level until the input stabilizes.
+
