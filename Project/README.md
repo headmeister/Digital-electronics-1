@@ -82,5 +82,9 @@ The circuit has been implemented on a development board with Altera cyclone IV E
 
 ### Simplified schematic (wiring diagram)
 The schematic of used board can be found in supplementary material folder: https://github.com/headmeister/Digital-electronics-1/blob/master/Project/Supplementary%20material/schematic_v200.pdf
+
+![Diagram](images/schematic.PNG )
+This picture shows the schematic of supplementary devices which are connected to used board
+
 ## Video 
 
