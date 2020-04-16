@@ -87,6 +87,6 @@ The schematic of used board can be found in supplementary material folder: https
 This picture shows the schematic of supplementary devices which are connected to used board. The LED resistor has been computed for expected LED current of 20 mA and expected LED drop (depends on color) of 2V. The base resistor has been calculated for base current of approx 1 mA which should guarantee saturation.   
 
 ## Video 
-
+[![alt](https://img.youtube.com/vi/S_ScGBOjv98/0.jpg)](https://www.youtube.com/watch?v=S_ScGBOjv98)
 ## Sources
 Schematic of development board, supplied by the manufacturer. 
