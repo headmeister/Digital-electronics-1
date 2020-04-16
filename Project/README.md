@@ -77,3 +77,10 @@ This module is used to debounce mechanical switches. These switches tend to osci
 ![Diagram](images/debouncer.PNG )
 This picture shows the debouncer functionality, while the input changes rapidly for certain period of time, the output stays at the same level until the input stabilizes.
 
+## Hardware implementation
+The circuit has been implemented on a development board with Altera cyclone IV EP4CE6E22C8N FPGA. To simulate coolrunner board interface an over the top module called project has been created, this module creates needed clock of 10 kHz and acts like an intermediate block to connect to 7 segment displays on the used board.  The clock generation is necessary since the board has fixed clock generator of 46 MHz. The rotary encoder has been connected to three pins on the pin header of used board. The switches and the button use 10 kOhm pull-up resitors, so that when the switch or a button is switched on, the output signal goes low. The output is probed by oscilloscope however an LED with appropriate resistor in series could have been used to show the dimming process. The interface pins of FPGA have been set to use 3.3V logic, which is the highest voltage this FPGA can use. 
+
+### Simplified schematic (wiring diagram)
+
+## Video 
+
