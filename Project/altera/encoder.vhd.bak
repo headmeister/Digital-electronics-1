@@ -1,0 +1,119 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    17:36:30 04/02/2020 
+-- Design Name: 
+-- Module Name:    encoder - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity encoder is
+port (
+    clk_i    : in  std_logic;
+	 
+    A : in  std_logic;   -- Synchronous reset (active low)
+	 B : in  std_logic;                  
+    enc_value: out std_logic_vector(12-1 downto 0);
+	 reset: out std_logic);
+end entity encoder;
+
+architecture Behavioral of encoder is
+
+signal A_before : std_logic :='0';
+signal enc : std_logic_vector(12-1 downto 0):= x"000";
+signal srstn : std_logic :='1';
+signal inc : std_logic_vector(12-1 downto 0) :=x"001";
+signal s_en: std_logic;
+begin
+
+p_encoder : process (clk_i)
+    begin
+        if rising_edge(clk_i) then  -- Rising clock edge
+           
+              
+				if B = A and A_before /= A  then
+				
+				if enc+inc <x"fff" then -- check the overflow
+				 enc<=enc+inc;
+				end if;
+
+				A_before<=A;
+				srstn<='0';
+				if inc< x"fff" then -- check if increment is less then maximum
+				inc<=inc+1;
+				else
+				 enc<=x"fff";
+				end if;
+				
+				reset<='0';
+				
+				elsif B /= A and A_before /= A  then
+				if enc-inc >x"001" then
+				 enc<=enc-inc;
+				 else
+				 enc<=x"001";
+				end if;
+				A_before<=A;
+					srstn<='0';
+					if inc< x"fff" then
+					inc<=inc+1;
+					end if;
+					reset<='0';
+					
+					
+					else
+					enc<=enc;
+					A_before<=A_before;
+					reset<='1';
+					
+            end if;
+				if s_en='1' then
+				inc<=x"001";
+				srstn<='0';
+				else
+				srstn<='1';
+				end if;
+				
+        end if;
+    end process p_encoder;
+
+enc_value<=enc;
+
+
+GGenable: entity work.clock_enable  							-- velocity controll timer
+        generic map (g_NPERIOD=>x"09C4")
+        port map (-- <component_signal> => actual_signal,
+                  -- <component_signal> => actual_signal,
+                  -- ...
+                  -- <component_signal> => actual_signal);
+                  -- WRITE YOUR CODE HERE
+                  clk_i=>clk_i,
+                  srst_n_i=>srstn,
+                  clock_enable_o=>s_en
+                 );
+
+
+end Behavioral;
+

@@ -1,0 +1,155 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    21:39:59 04/02/2020 
+-- Design Name: 
+-- Module Name:    top - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity top is
+port (
+    clk_i    : in  std_logic;
+	 
+    A : in  std_logic;   -- Synchronous reset (active low)
+	 B : in  std_logic ;                 
+    
+		dp_o     : out std_logic;                       -- Decimal point
+    seg_o    : out std_logic_vector(7-1 downto 0);
+    dig_o    : out std_logic_vector(4-1 downto 0);
+	 
+	 countdown_complete: out std_logic
+	 
+	 
+	 
+	 );
+	 
+	 
+	 
+end top;
+
+architecture Behavioral of top is
+signal enc_value: std_logic_vector(12-1 downto 0);
+
+signal cislice1: std_logic_vector(4-1 downto 0);
+signal cislice2: std_logic_vector(4-1 downto 0);
+signal cislice3: std_logic_vector(4-1 downto 0);
+signal cislice4: std_logic_vector(4-1 downto 0);
+signal ce_1Hz:  std_logic;
+
+signal counter_reset: std_logic;
+signal clock_1Hz :  std_logic;
+begin
+
+encoder: entity work.encoder  							-- velocity controll timer
+        
+        port map (-- <component_signal> => actual_signal,
+                  -- <component_signal> => actual_signal,
+                  -- ...
+                  -- <component_signal> => actual_signal);
+                  -- WRITE YOUR CODE HERE
+                  clk_i=>clk_i,
+                  A=>A,
+						B=>B,
+                  enc_value=>enc_value,
+						reset=>counter_reset
+                 );
+
+driver: entity work.driver_7seg  							-- velocity controll timer
+        
+        port map (-- <component_signal> => actual_signal,
+                  -- <component_signal> => actual_signal,
+                  -- ...
+                  -- <component_signal> => actual_signal);
+                  -- WRITE YOUR CODE HERE
+                  clk_i=>clk_i,
+						srst_n_i=>'1',
+						data0_i=>cislice1,
+						data1_i=>cislice2,
+						data2_i=>cislice3,
+						data3_i=>cislice4,
+						dp_i=>"1111",
+						dp_o=>dp_o,
+						seg_o=>seg_o,
+						dig_o=>dig_o
+                 );
+					  
+					  
+			Countdown: entity work.counter
+        port map (clk_i=>clk_i,
+						srst_n_i=>counter_reset,
+						ce_1Hz_i=>ce_1Hz,
+						sec_h_o=>cislice1,
+						sec_l_o=>cislice2,
+						hth_h_o=>cislice3,
+						hth_l_o=>cislice4,
+						enc_val=>enc_value,
+						countdown_complete=>countdown_complete
+                  );
+					  
+					  
+					  
+					  
+					  
+					  Enable_counter: entity work.clock_enable
+        generic map (g_NPERIOD=>x"2710")
+        port map (-- <component_signal> => actual_signal,
+                  -- <component_signal> => actual_signal,
+                  -- ...
+                  -- <component_signal> => actual_signal);
+                  -- WRITE YOUR CODE HERE
+                  clk_i=>clk_i,
+                  srst_n_i=>counter_reset,
+                  clock_enable_o=>clock_1Hz
+                 );
+					  
+					  
+					   counter_trigger : process (clk_i)
+					begin
+					  
+					  if rising_edge(clk_i) then
+						if clock_1Hz='1' and ce_1Hz='0' then
+						ce_1Hz<='1';	
+						elsif clock_1Hz='0' and ce_1Hz='1' then
+						ce_1Hz<='0';
+						
+						elsif clock_1Hz='1' and ce_1Hz='1' then
+						ce_1Hz<='1';
+						
+						elsif clock_1Hz='0' and ce_1Hz='0' then
+						ce_1Hz<='0';
+						
+					   end if;
+						
+						
+						
+					  
+					  end if;
+				end process counter_trigger;	  
+					  
+					  
+
+end Behavioral;
+

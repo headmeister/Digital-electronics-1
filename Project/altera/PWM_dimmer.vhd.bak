@@ -1,0 +1,60 @@
+------------------------------------------------------------------------
+--
+-- Driver for seven-segment displays.
+-- Xilinx XC2C256-TQ144 CPLD, ISE Design Suite 14.7
+--
+-- Copyright (c) 2019-2020 Tomas Fryza
+-- Dept. of Radio Electronics, Brno University of Technology, Czechia
+-- This work is licensed under the terms of the MIT license.
+--
+------------------------------------------------------------------------
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;    -- Provides unsigned numerical computation
+
+------------------------------------------------------------------------
+-- Entity declaration for display driver
+------------------------------------------------------------------------
+entity PWM_dimmer is
+port (
+    clk_i    : in  std_logic;
+    dimmer_active_n : in  std_logic;   -- Synchronous reset (active low)
+   
+   
+    PWM_out    : out std_logic;                       -- Decimal point
+
+	 
+);
+end entity PWM_dimmer;
+
+------------------------------------------------------------------------
+-- Architecture declaration for display driver
+------------------------------------------------------------------------
+architecture Behavioral of PWM_dimmer is
+    signal PWM_period  : std_logic;
+	signal PWM_duty_cycle  : std_logic;
+	signal PWM : std_logic;
+begin
+
+
+	
+    --------------------------------------------------------------------
+    -- Sub-block of clock_enable entity. Create s_en signal.
+    --- WRITE YOUR CODE HERE
+	GGenable: entity work.clock_enable
+        generic map (g_NPERIOD=>x"0064")
+        port map (-- <component_signal> => actual_signal,
+                  -- <component_signal> => actual_signal,
+                  -- ...
+                  -- <component_signal> => actual_signal);
+                  -- WRITE YOUR CODE HERE
+                  clk_i=>clk_i,
+                  srst_n_i=>srst_n_i,
+                  clock_enable_o=>s_en
+                 );
+
+    --------------------------------------------------------------------
+  
+
+end architecture Behavioral;
